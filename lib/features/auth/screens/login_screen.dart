@@ -35,85 +35,74 @@ class LoginScreen extends ConsumerWidget {
             child: SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: Stack(
-            fit: StackFit.expand,
+          child: Column(
             children: [
-              Image.asset(
-                AppImages.authImage,
-                fit: BoxFit.cover,
-              ),
-              Column(
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      CupertinoNavigationBarBackButton(
-                          color: AppColors.textWhiteColor, onPressed: () {}),
-                      SizedBox(width: context.w * 0.35),
-                      const Text(
-                        "Login",
-                        style: TextStyle(
-                            color: AppColors.textWhiteColor, fontSize: 21),
-                      ),
-                    ],
-                  ),
-                  AppSizes.largeY,
-                  LoginHeader(
-                    w: context.w,
-                    text1: "Welcome Back",
-                    text2: "Sign in with your email and password ",
-                    text3: "or continue with social media",
-                  ),
-                  AppSizes.largeY,
-                  AuthFormField(
-                    emailController: emailController,
-                    passwordController: passwordController,
-                  ),
-                  AppSizes.tinyY,
-                  const Forgot(),
-                  AppSizes.normalY,
-                  Button(
-                    isLoading: ref.watch(authNotifier).isLoading,
-                    press: () => ref.read(authNotifier.notifier).signIn(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                        context: context),
-                    text: "Login",
-                  ),
-                  AppSizes.largeY,
-                  AppSizes.largeY,
-                  // GestureDetector(
-                  //   onTap: () => ref
-                  //       .read(socialAuthNotifier.notifier)
-                  //       .googleSignIn(
-                  //           email: emailController.text.trim(),
-                  //           password: passwordController.text.trim(),
-                  //           context: context),
-                  //   child: Container(
-                  //     height: 60.h,
-                  //     width: context.w * 0.7,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(15),
-                  //         border: Border.all(color: Colors.white54)),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         SvgPicture.asset("assets/svgs/google.svg",
-                  //             height: 30.h, width: 30.w),
-                  //         SizedBox(width: 20.w),
-                  //         Text("Sign in with Google",
-                  //             style: context.textTheme.labelLarge)
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SocialCard(),
-                  const Spacer(),
-                  SignUpBar(
-                    onTap: () => context.push(RegisterScreen()),
-                    text1: "Dont't have an account?",
-                    text2: "Sign up",
+                  CupertinoNavigationBarBackButton(
+                      color: AppColors.textWhiteColor, onPressed: () {}),
+                  SizedBox(width: context.w * 0.35),
+                  const Text(
+                    "Login",
+                    style: TextStyle(
+                        color: AppColors.textWhiteColor, fontSize: 21),
                   ),
                 ],
+              ),
+              AppSizes.largeY,
+              LoginHeader(
+                w: context.w,
+                text1: "Welcome Back",
+                text2: "Sign in with your email and password ",
+                text3: "or continue with social media",
+              ),
+              AppSizes.largeY,
+              AuthFormField(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              AppSizes.tinyY,
+              const Forgot(),
+              AppSizes.largeY,
+              Button(
+                isLoading: ref.watch(authNotifier).isLoading,
+                press: () => ref.read(authNotifier.notifier).signIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                    context: context),
+                text: "Login",
+              ),
+              AppSizes.largeY,
+              AppSizes.largeY,
+              GestureDetector(
+                onTap: () => ref.read(socialAuthNotifier.notifier).googleSignIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                    context: context),
+                child: Container(
+                  height: 60.h,
+                  width: context.w * 0.7,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.white54)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset("assets/svgs/google.svg",
+                          height: 30.h, width: 30.w),
+                      SizedBox(width: 20.w),
+                      Text("Sign in with Google",
+                          style: context.textTheme.labelLarge)
+                    ],
+                  ),
+                ),
+              ),
+              // const SocialCard(),
+              const Spacer(),
+              SignUpBar(
+                onTap: () => context.push(RegisterScreen()),
+                text1: "Dont't have an account?",
+                text2: "Sign up",
               ),
             ],
           ),

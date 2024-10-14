@@ -32,67 +32,58 @@ class RegisterScreen extends ConsumerWidget {
         body: SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: Stack(
-            fit: StackFit.expand,
+          child: Column(
             children: [
-              Image.asset(
-                AppImages.authImage,
-                fit: BoxFit.cover,
-              ),
-              Column(
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      CupertinoNavigationBarBackButton(
-                          color: AppColors.textWhiteColor,
-                          onPressed: () {
-                            context.pop();
-                          }),
-                      SizedBox(width: context.w * 0.3),
-                      const Text(
-                        "Register",
-                        style: TextStyle(
-                            color: AppColors.textWhiteColor, fontSize: 21),
-                      ),
-                    ],
-                  ),
-                  AppSizes.largeY,
-                  LoginHeader(
-                      w: context.w,
-                      text1: "Create Your Account",
-                      text2: "Sign up with your email and password",
-                      text3: "or continue with social media"),
-                  AppSizes.largeY,
-                  CustomTextField(
-                      validator: (value) {
-                        return value == null ? "Field can't be empty" : null;
-                      },
-                      controller: nameController,
-                      inputDecoration:
-                          AppTextFieldDecorations.genericInputDecoration(
-                              label: "Name")),
-                  AppSizes.normalY,
-                  AuthFormField(
-                    emailController: emailController,
-                    passwordController: passwordController,
-                  ),
-                  AppSizes.largeY,
-                  Button(
-                    isLoading: ref.watch(authNotifier).isLoading,
-                    press: () => ref.read(authNotifier.notifier).register(
-                        name: nameController.text.trim(),
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                        context: context),
-                    text: "Register",
-                  ),
-                  const Spacer(),
-                  SignUpBar(
-                    onTap: () => context.pop(),
-                    text1: "Already have an account?",
-                    text2: "Sign In",
+                  CupertinoNavigationBarBackButton(
+                      color: AppColors.textWhiteColor,
+                      onPressed: () {
+                        context.pop();
+                      }),
+                  SizedBox(width: context.w * 0.3),
+                  const Text(
+                    "Register",
+                    style: TextStyle(
+                        color: AppColors.textWhiteColor, fontSize: 21),
                   ),
                 ],
+              ),
+              AppSizes.largeY,
+              LoginHeader(
+                  w: context.w,
+                  text1: "Create Your Account",
+                  text2: "Sign up with your email and password",
+                  text3: "or continue with social media"),
+              AppSizes.largeY,
+              CustomTextField(
+                  validator: (value) {
+                    return value == null ? "Field can't be empty" : null;
+                  },
+                  controller: nameController,
+                  inputDecoration:
+                      AppTextFieldDecorations.genericInputDecoration(
+                          label: "Name")),
+              AppSizes.normalY,
+              AuthFormField(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              AppSizes.largeY,
+              Button(
+                isLoading: ref.watch(authNotifier).isLoading,
+                press: () => ref.read(authNotifier.notifier).register(
+                    name: nameController.text.trim(),
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                    context: context),
+                text: "Register",
+              ),
+              const Spacer(),
+              SignUpBar(
+                onTap: () => context.pop(),
+                text1: "Already have an account?",
+                text2: "Sign In",
               ),
             ],
           ),

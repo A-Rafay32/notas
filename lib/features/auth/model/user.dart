@@ -1,64 +1,50 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:notas/core/enums/gender.dart';
 import 'package:notas/features/auth/model/user_details.dart';
 
 class UserModel {
   final String id;
-  final UserDetails userDetails;
-  final String expeditionId;
-  final String? lastQuizPlayedId;
-  final List<String>? expeditionsIds;
-  final List<String>? favExpeditions;
-  final List<String>? quizesPlayed;
-  final List<String>? quizesInProgress;
-  final List<String>? expeditionsInProgress;
-  final List<String>? badgesEarned;
+  final String name;
+  final String email;
+  final String? password;
+  final String? image;
+  final String? bio;
 
   UserModel({
-    required this.userDetails,
-    required this.expeditionId,
+    required this.name,
+    required this.email,
+    this.password,
+    this.image,
+    this.bio,
     required this.id,
-    this.badgesEarned,
-    this.favExpeditions,
-    this.expeditionsIds,
-    this.expeditionsInProgress,
-    this.lastQuizPlayedId,
-    this.quizesInProgress,
-    this.quizesPlayed,
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'id': id,
-      'userDetails': userDetails.toMap(),
-      'expeditionId': expeditionId,
-      'lastQuizPlayedId': lastQuizPlayedId,
-      'expeditionsIds': expeditionsIds,
-      'favExpeditions': favExpeditions,
-      'quizesPlayed': quizesPlayed,
-      'quizesInProgress': quizesInProgress,
-      'expeditionsInProgress': expeditionsInProgress,
-      'badgesEarned': badgesEarned,
+      'name': name,
+      'email': email,
+      'password': password,
+      'image': image,
+      'bio': bio,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] ?? '',
-      userDetails: UserDetails.fromMap(map['userDetails']),
-      expeditionId: map['expeditionId'] ?? '',
-      lastQuizPlayedId: map['lastQuizPlayedId'],
-      expeditionsIds: (map['expeditionsIds']),
-      favExpeditions: (map['favExpeditions']),
-      quizesPlayed: (map['quizesPlayed']),
-      quizesInProgress: (map['quizesInProgress']),
-      expeditionsInProgress: (map['expeditionsInProgress']),
-      badgesEarned: (map['badgesEarned']),
+      id: map['id'] as String,
+      name: map['name'] as String,
+      email: map['email'] as String,
+      password: map['password'] != null ? map['password'] as String : null,
+      image: map['image'] != null ? map['image'] as String : null,
+      bio: map['bio'] != null ? map['bio'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

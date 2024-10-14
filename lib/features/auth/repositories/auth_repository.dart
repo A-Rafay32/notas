@@ -53,13 +53,11 @@ class AuthRepository {
           email: email, password: password);
       final result = await UserRepository().createUser(
           user: UserModel(
-              expeditionId: "$name-${Random().nextInt(100)}",
-              id: currentUser?.uid ?? "",
-              userDetails: UserDetails(
-                name: name,
-                email: email,
-                password: password,
-              )),
+            id: currentUser?.uid ?? "",
+            name: name,
+            email: email,
+            password: password,
+          ),
           uid: currentUser?.uid ?? "");
 
       await currentUser?.updateDisplayName(name);

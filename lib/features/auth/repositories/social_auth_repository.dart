@@ -35,13 +35,10 @@ class SocialAuthService extends AuthRepository {
         if (foundUser.isLeft) {
           final result = await UserRepository().createUser(
               user: UserModel(
-                  expeditionId:
-                      "${userCredential.user?.displayName}-${Random().nextInt(100)}",
                   id: userCredential.user?.uid ?? "",
-                  userDetails: UserDetails(
-                      name: userCredential.user?.displayName ?? "",
-                      email: userCredential.user?.email ?? "",
-                      password: "")),
+                  name: userCredential.user?.displayName ?? "",
+                  email: userCredential.user?.email ?? "",
+                  password: ""),
               uid: userCredential.user?.uid.toString() ?? "");
         }
       }
