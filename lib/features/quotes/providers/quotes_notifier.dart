@@ -12,7 +12,7 @@ class QuotesNotifier extends StateNotifier<AsyncValue> {
 
   final QuotesRepository repository;
 
-  void createCollection(Quote quote, BuildContext context) async {
+  void addQuote(Quote quote, BuildContext context) async {
     state = const AsyncValue.loading();
     final result = await repository
         .createQuote(quote: quote)

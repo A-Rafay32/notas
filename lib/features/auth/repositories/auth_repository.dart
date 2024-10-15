@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:notas/core/utils/gen_random_ids.dart';
 import 'package:notas/core/utils/types.dart';
 import 'package:notas/features/auth/model/user_details.dart';
 import 'package:notas/features/auth/repositories/user_repository.dart';
 import 'package:notas/features/auth/model/user.dart';
+import 'package:notas/features/collections/models/collections.dart';
+import 'package:notas/features/collections/repositories/collection_repositories.dart';
 
 class AuthRepository {
   static FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
@@ -59,6 +62,12 @@ class AuthRepository {
             password: password,
           ),
           uid: currentUser?.uid ?? "");
+
+      await CollectionRepository().createCollection(
+          collection: Collection(
+              id: generateId(),
+              createdBy: currentUser?.uid ?? "",
+              name: "Main"));
 
       await currentUser?.updateDisplayName(name);
 

@@ -1,16 +1,37 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notas/app/constants/firebase_constants.dart';
 import 'package:notas/app/themes/app_colors.dart';
+import 'package:notas/core/utils/gen_random_ids.dart';
+import 'package:notas/features/auth/providers/auth_providers.dart';
+import 'package:notas/features/quotes/models/quotes.dart';
+import 'package:notas/features/quotes/providers/quotes_notifier.dart';
 
-class AddButton extends StatelessWidget {
-  const AddButton(
-      {super.key,
-      required this.authorController,
-      required this.quoteController,
-      required this.onPressed});
-  final Function() onPressed;
-  final TextEditingController quoteController;
-  final TextEditingController authorController;
+class AddButton extends ConsumerStatefulWidget {
+  const AddButton({
+    super.key,
+  });
+
+  @override
+  ConsumerState<AddButton> createState() => _AddButtonState();
+}
+
+class _AddButtonState extends ConsumerState<AddButton> {
+  final TextEditingController quoteController = TextEditingController();
+  final TextEditingController authorController = TextEditingController();
+
+  @override
+  void dispose() {
+    quoteController.dispose();
+    authorController.dispose();
+    super.dispose();
+  }
+
+  void clear() {
+    quoteController.clear();
+    authorController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +39,9 @@ class AddButton extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(HeroDialogRoute(builder: (context) {
             return _AddTodoPopupCard(
-                authorController, quoteController, onPressed);
+                authorController: authorController,
+                quoteController: quoteController,
+                onPressed: () {});
           }));
         },
         child: Hero(
@@ -37,15 +60,28 @@ class AddButton extends StatelessWidget {
               ),
             )));
   }
+
+  void addQuote() {
+    final String userId = ref.read(currentUserProvider)?.uid.toString() ?? "";
+    // final String collectionId =  ref
+
+    final Quote quote = Quote(
+        id: generateId(),
+        quotes: quoteController.text.trim().toString(),
+        author: authorController.text.trim().toString(),
+        userId: userId,
+        collectionIds: []);
+
+    ref.read(quoteNotifier.notifier).addQuote(quote, context);
+  }
 }
 
 class _AddTodoPopupCard extends StatelessWidget {
   /// {@macro add_todo_popup_card}
   _AddTodoPopupCard(
-    this.authorController,
-    this.quoteController,
-    this.onPressed,
-  );
+      {required this.authorController,
+      required this.quoteController,
+      required this.onPressed});
 
   final TextEditingController quoteController;
   final TextEditingController authorController;

@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:notas/app/constants/app_images.dart';
 import 'package:notas/app/themes/app_colors.dart';
-import 'package:notas/app/themes/app_paddings.dart';
-import 'package:notas/app/themes/app_text_field_themes.dart';
 import 'package:notas/core/extensions/routes_extenstion.dart';
 import 'package:notas/core/extensions/sizes_extensions.dart';
-import 'package:notas/core/utils/loader.dart';
-import 'package:notas/features/home/providers/articles_provider.dart';
+import 'package:notas/features/collections/screens/collection_screen.dart';
 import 'package:notas/features/home/providers/home_state_provider.dart';
-import 'package:notas/features/home/screens/ai_screen.dart';
 import 'package:notas/features/home/screens/buyer_profile_screen.dart';
-import 'package:notas/features/home/screens/explore_article_screen.dart';
-import 'package:notas/features/home/screens/explore_exoplanets_screen.dart';
-import 'package:notas/features/home/screens/news_card_widget.dart';
-// import 'package:notas/features/stars/stars_screen.dart';
+import 'package:notas/features/home/screens/widgets/add_quote_dialog.dart';
 import 'package:notas/features/home/screens/widgets/app_bars.dart';
 import 'package:notas/features/home/screens/widgets/custom_navigation_bar.dart';
-import 'package:notas/features/home/screens/widgets/expedition_card.dart';
 
 class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
@@ -27,9 +17,9 @@ class HomeScreen extends ConsumerWidget {
   int currentScreen = 0;
   final List<Widget> screens = [
     const HomeScreenWidget(),
-    const ExploreArticlesScreen(),
+    const CollectionScreen(),
     const BuyerProfileScreen(),
-    const ExploreArticlesScreen(),
+    const BuyerProfileScreen(),
   ];
 
   @override
@@ -51,7 +41,7 @@ class HomeScreen extends ConsumerWidget {
         backgroundColor: AppColors.secondaryColor,
         onPressed: () {
           // context.push(const AddExpeditionScreen());
-          // context.push(const AIScreen());
+          context.push(const AddButton());
         },
         child: SvgPicture.asset(
           "assets/svgs/ai.svg",
@@ -91,8 +81,6 @@ class HomeScreenWidget extends ConsumerStatefulWidget {
 class _HomeScreenWidgetState extends ConsumerState<HomeScreenWidget> {
   @override
   Widget build(BuildContext context) {
-    final articleValue = ref.watch(articlesProvider);
-
     return Container(
       child: const Text("Homescreen"),
     );

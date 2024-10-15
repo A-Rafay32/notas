@@ -54,22 +54,21 @@ class CollectionRepository {
     }
   }
 
-  // Get Collections created by a specific user
-  FutureEither1<List<Collection>> getCollectionsByUser(String userId) async {
-    try {
-      QuerySnapshot collectionDocs =
-          await collectionReference.where("createdBy", isEqualTo: userId).get();
-      if (collectionDocs.docs.isNotEmpty) {
-        List<Collection> collections = collectionDocs.docs.map((doc) {
+  // Get Collections created by a specific user as a Stream
+  Stream<List<Collection>> getCollectionsByUser(String userId) {
+    return collectionReference
+        .where("createdBy", isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        List<Collection> collections = snapshot.docs.map((doc) {
           return Collection.fromMap(doc.data() as Map<String, dynamic>);
         }).toList();
-        return Right(collections);
+        return collections;
       } else {
-        return failure("No collections found for this user");
+        return [];
       }
-    } on FirebaseException catch (e) {
-      return failure(e.message.toString());
-    }
+    });
   }
 
   // Delete a specific Collection

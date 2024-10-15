@@ -104,7 +104,6 @@ class _ForgotFormFieldState extends State<ForgotFormField> {
   @override
   void dispose() {
     emailController.dispose();
-
     super.dispose();
   }
 

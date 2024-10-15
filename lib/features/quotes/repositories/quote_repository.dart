@@ -10,7 +10,6 @@ class QuotesRepository {
   final CollectionReference quotesCollection =
       FirebaseFirestore.instance.collection("quotes");
 
-  // Create a new Quote
   FutureEither0 createQuote({
     required Quote quote,
   }) async {
