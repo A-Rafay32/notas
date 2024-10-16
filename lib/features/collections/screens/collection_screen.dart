@@ -12,6 +12,7 @@ import 'package:notas/features/auth/screens/widgets/app_bar_white.dart';
 import 'package:notas/features/collections/models/collections.dart';
 import 'package:notas/features/collections/providers/collection_notifier.dart';
 import 'package:notas/features/collections/providers/collection_providers.dart';
+import 'package:notas/features/quotes/screens/quote_screen.dart';
 
 class CollectionScreen extends ConsumerWidget {
   const CollectionScreen({super.key});
@@ -46,6 +47,11 @@ class AllCollectionWidget extends ConsumerWidget {
         child: ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) => ListTile(
+            onTap: () {
+              context.push(QuoteScreen(
+                collectionId: data[index].id,
+              ));
+            },
             title: Text(
               data[index].name,
               style: context.textTheme.labelMedium

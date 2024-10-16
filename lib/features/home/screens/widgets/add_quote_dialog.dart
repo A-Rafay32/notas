@@ -9,10 +9,9 @@ import 'package:notas/features/quotes/models/quotes.dart';
 import 'package:notas/features/quotes/providers/quotes_notifier.dart';
 
 class AddButton extends ConsumerStatefulWidget {
-  const AddButton({
-    super.key,
-  });
+  const AddButton({super.key, required this.collectionId});
 
+  final String collectionId;
   @override
   ConsumerState<AddButton> createState() => _AddButtonState();
 }
@@ -70,7 +69,7 @@ class _AddButtonState extends ConsumerState<AddButton> {
         quotes: quoteController.text.trim().toString(),
         author: authorController.text.trim().toString(),
         userId: userId,
-        collectionIds: []);
+        collectionIds: [widget.collectionId]);
 
     ref.read(quoteNotifier.notifier).addQuote(quote, context);
   }

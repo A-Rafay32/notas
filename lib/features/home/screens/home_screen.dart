@@ -39,10 +39,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.secondaryColor,
-        onPressed: () {
-          // context.push(const AddExpeditionScreen());
-          context.push(const AddButton());
-        },
+        onPressed: () {},
         child: SvgPicture.asset(
           "assets/svgs/ai.svg",
           height: 30,
