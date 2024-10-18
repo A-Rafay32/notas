@@ -77,7 +77,7 @@ class _AddButtonState extends ConsumerState<AddButton> {
 
 class _AddTodoPopupCard extends StatelessWidget {
   /// {@macro add_todo_popup_card}
-  _AddTodoPopupCard(
+  const _AddTodoPopupCard(
       {required this.authorController,
       required this.quoteController,
       required this.onPressed});
@@ -85,14 +85,6 @@ class _AddTodoPopupCard extends StatelessWidget {
   final TextEditingController quoteController;
   final TextEditingController authorController;
   final Function() onPressed;
-
-  Map<String, dynamic> map = {
-    "id": "",
-    "collectionId": "",
-    "author": "",
-    "quote": "",
-  };
-  int id = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +109,6 @@ class _AddTodoPopupCard extends StatelessWidget {
                   children: [
                     TextField(
                       controller: quoteController,
-                      onChanged: (value) {
-                        map["quote"] = value;
-                      },
                       decoration: const InputDecoration(
                         hintText: 'Write a quote',
                         hintStyle: TextStyle(
@@ -138,9 +127,6 @@ class _AddTodoPopupCard extends StatelessWidget {
                     ),
                     TextField(
                       controller: authorController,
-                      onChanged: (value) {
-                        map["author"] = value;
-                      },
                       decoration: const InputDecoration(
                         hintText: 'Author',
                         hintStyle: TextStyle(
@@ -162,7 +148,7 @@ class _AddTodoPopupCard extends StatelessWidget {
                       child: const Text(
                         'ADD',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.textBlackColor,
                             fontFamily: "Kanit",
                             fontSize: 21,
                             fontWeight: FontWeight.w600),
@@ -176,6 +162,107 @@ class _AddTodoPopupCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AddTodoPopupCard extends ConsumerWidget {
+  /// {@macro add_todo_popup_card}
+  AddTodoPopupCard({super.key, required this.collectionId});
+
+  final TextEditingController quoteController = TextEditingController();
+  final TextEditingController authorController = TextEditingController();
+  final String collectionId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Hero(
+          tag: "add-pop-up-tag",
+          createRectTween: (begin, end) {
+            return CustomRectTween(begin: begin, end: end);
+          },
+          child: Material(
+            color: AppColors.secondaryColor,
+            elevation: 2,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: quoteController,
+                      decoration: const InputDecoration(
+                        hintText: 'Write a quote',
+                        hintStyle: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
+                        border: InputBorder.none,
+                      ),
+                      cursorColor: Colors.black,
+                      style: const TextStyle(color: Colors.black, fontSize: 21),
+                      maxLines: 6,
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                      thickness: 0.6,
+                    ),
+                    TextField(
+                      controller: authorController,
+                      decoration: const InputDecoration(
+                        hintText: 'Author',
+                        hintStyle: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
+                        border: InputBorder.none,
+                      ),
+                      cursorColor: Colors.black,
+                      maxLines: 2,
+                      style: const TextStyle(color: Colors.black, fontSize: 21),
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                      thickness: 0.6,
+                    ),
+                    TextButton(
+                      onPressed: () => addQuote(ref, context),
+                      child: const Text(
+                        'ADD',
+                        style: TextStyle(
+                            color: AppColors.textBlackColor,
+                            fontFamily: "Kanit",
+                            fontSize: 21,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void addQuote(WidgetRef ref, BuildContext context) {
+    final String userId = ref.read(currentUserProvider)?.uid.toString() ?? "";
+    // final String collectionId =  ref
+
+    final Quote quote = Quote(
+        id: generateId(),
+        quotes: quoteController.text.trim().toString(),
+        author: authorController.text.trim().toString(),
+        userId: userId,
+        collectionIds: [collectionId]);
+
+    ref.read(quoteNotifier.notifier).addQuote(quote, context);
   }
 }
 

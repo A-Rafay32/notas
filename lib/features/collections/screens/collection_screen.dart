@@ -49,7 +49,7 @@ class AllCollectionWidget extends ConsumerWidget {
           itemBuilder: (context, index) => ListTile(
             onTap: () {
               context.push(QuoteScreen(
-                collectionId: data[index].id,
+                collection: data[index],
               ));
             },
             title: Text(

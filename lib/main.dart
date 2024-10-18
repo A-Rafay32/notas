@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
               title: 'Notas',  
               theme: AppThemes().theme,
               home: const SplashScreen());
-          // home: HomeScreen());
         });
   }
 }

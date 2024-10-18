@@ -14,6 +14,7 @@ class QuotesRepository {
     required Quote quote,
   }) async {
     try {
+      // if(quotesCollection.get().)
       await quotesCollection.doc(quote.id).set(quote.toMap());
       return success("Quote created successfully");
     } on FirebaseException catch (e) {
@@ -69,22 +70,23 @@ class QuotesRepository {
   }
 
   // Get Quotes by a specific collection
-  FutureEither1<List<Quote>> getQuotesByCollection(String collectionId) async {
-    try {
-      QuerySnapshot quotesDocs = await quotesCollection
-          .where("collectionIds", arrayContains: collectionId)
-          .get();
-      if (quotesDocs.docs.isNotEmpty) {
-        List<Quote> quotes = quotesDocs.docs.map((doc) {
-          return Quote.fromMap(doc.data() as Map<String, dynamic>);
-        }).toList();
-        return Right(quotes);
-      } else {
-        return failure("No quotes found in this collection");
-      }
-    } on FirebaseException catch (e) {
-      return failure(e.message.toString());
-    }
+  Stream<List<Quote>> getQuotesByCollection(String collectionId) {
+    return quotesCollection
+        .where("collectionIds", arrayContains: collectionId)
+        // .where("userId", isEqualTo: currentUser?.uid)
+        .snapshots()
+        .map(
+      (snapshot) {
+        if (snapshot.docs.isNotEmpty) {
+          List<Quote> quotes = snapshot.docs.map((doc) {
+            return Quote.fromMap(doc.data() as Map<String, dynamic>);
+          }).toList();
+          return quotes;
+        } else {
+          return [];
+        }
+      },
+    );
   }
 
   // Delete a specific Quote

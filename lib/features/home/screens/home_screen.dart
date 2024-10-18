@@ -16,8 +16,8 @@ class HomeScreen extends ConsumerWidget {
 
   int currentScreen = 0;
   final List<Widget> screens = [
-    const HomeScreenWidget(),
     const CollectionScreen(),
+    const HomeScreenWidget(),
     const BuyerProfileScreen(),
     const BuyerProfileScreen(),
   ];
