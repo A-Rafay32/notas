@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:notas/app/themes/app_colors.dart';
 import 'package:notas/app/themes/app_paddings.dart';
+import 'package:notas/app/themes/app_text_field_themes.dart';
 import 'package:notas/core/extensions/routes_extenstion.dart';
 import 'package:notas/core/extensions/sizes_extensions.dart';
 import 'package:notas/core/extensions/text_theme_ext.dart';
@@ -24,7 +25,12 @@ class QuoteScreen extends ConsumerWidget {
     return Container(
       padding: AppPaddings.normal,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("${collection.name}/", style: context.textTheme.headlineMedium),
+        TextField(
+          decoration: AppTextFieldDecorations.searchFieldDecoration,
+        ),
+        AppSizes.largeY,
+        Text("${collection.name}/",
+            style: context.textTheme.headlineMedium?.copyWith()),
         AppSizes.normalY,
         streamValue.when(
           data: (data) => SizedBox(

@@ -7,7 +7,8 @@ final quotesRepositoryProvider = Provider((ref) {
 });
 
 final getQuotesByCollection =
-    StreamProvider.family<List<Quote>, String>((ref, collectionId)  {
-  return ref.watch(quotesRepositoryProvider).getQuotesByCollection(collectionId);
+    StreamProvider.family<List<Quote>, String>((ref, collectionId) {
+  return ref
+      .watch(quotesRepositoryProvider)
+      .getQuotesByCollection(collectionId);
 });
- 

@@ -146,7 +146,7 @@ class CreateCollectionWidget extends ConsumerWidget {
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
+                          borderSide:
                                 const BorderSide(color: Colors.white60)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),

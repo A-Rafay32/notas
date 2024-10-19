@@ -13,28 +13,16 @@ class AppTextFieldDecorations {
           borderSide: const BorderSide(color: AppColors.blackshadowColor),
           borderRadius: BorderRadius.circular(15),
           gapPadding: 10),
-
-      // prefixIcon: Padding(
-      //   padding: EdgeInsets.only(top: 10.sp, bottom: 10.sp),
-      //   child: SvgPicture.asset(
-      //     AppSvgs.search,
-      //     colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-      //   ),
-      // ),
-      suffixIcon: Container(
-        padding: EdgeInsets.all(9.sp),
-        margin: EdgeInsets.all(9.sp),
-        decoration: BoxDecoration(
-            gradient: AppColors.linearGradient, shape: BoxShape.circle),
-        child: SvgPicture.asset(
-          AppSvgs.filter,
-          colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-        ),
+      suffixIcon: Icon(
+        Icons.search_sharp,
+        size: 30.sp,
+        color: AppColors.textWhiteColor,
       ),
-      contentPadding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 23.h),
+      contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 19.h),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       hintText: "Search",
-      hintStyle: AppTextTheme.bodyMedium.copyWith(color: Colors.white),
+      hintStyle:
+          AppTextTheme.textTheme.bodyLarge?.copyWith(color: Colors.white),
       focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red.shade900),
           borderRadius: BorderRadius.circular(15),

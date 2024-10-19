@@ -13,6 +13,8 @@ final getCollectionsByUser =
   return ref.watch(collectionRepositoryProvider).getCollectionsByUser(userId);
 });
 
+
+
 final getDefaultCollection = FutureProvider((ref) async {
   final userValue = await UserRepository().getUser(currentUser?.uid ?? "");
   return CollectionRepository()

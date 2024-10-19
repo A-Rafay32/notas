@@ -1,12 +1,15 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notas/app/constants/firebase_constants.dart';
 import 'package:notas/app/themes/app_colors.dart';
+import 'package:notas/core/extensions/routes_extenstion.dart';
 import 'package:notas/core/utils/gen_random_ids.dart';
 import 'package:notas/features/auth/providers/auth_providers.dart';
 import 'package:notas/features/quotes/models/quotes.dart';
 import 'package:notas/features/quotes/providers/quotes_notifier.dart';
+import 'package:notas/features/quotes/screens/quote_screen.dart';
 
 class AddButton extends ConsumerStatefulWidget {
   const AddButton({super.key, required this.collectionId});
@@ -40,7 +43,7 @@ class _AddButtonState extends ConsumerState<AddButton> {
             return _AddTodoPopupCard(
                 authorController: authorController,
                 quoteController: quoteController,
-                onPressed: () {});
+                onPressed: () => addQuote(ref, context));
           }));
         },
         child: Hero(
@@ -49,18 +52,19 @@ class _AddButtonState extends ConsumerState<AddButton> {
               color: AppColors.secondaryColor,
               elevation: 2,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32)),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
+                  borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.all(15),
                 child: Icon(
                   Icons.add,
-                  size: 40,
+                  size: 40.sp,
+                  color: AppColors.backgroundColor,
                 ),
               ),
             )));
   }
 
-  void addQuote() {
+  void addQuote(WidgetRef ref, BuildContext context) {
     final String userId = ref.read(currentUserProvider)?.uid.toString() ?? "";
     // final String collectionId =  ref
 
@@ -72,6 +76,7 @@ class _AddButtonState extends ConsumerState<AddButton> {
         collectionIds: [widget.collectionId]);
 
     ref.read(quoteNotifier.notifier).addQuote(quote, context);
+    context.pop();
   }
 }
 
@@ -143,17 +148,13 @@ class _AddTodoPopupCard extends StatelessWidget {
                       color: Colors.black,
                       thickness: 0.6,
                     ),
-                    TextButton(
-                      onPressed: onPressed,
-                      child: const Text(
-                        'ADD',
-                        style: TextStyle(
-                            color: AppColors.textBlackColor,
-                            fontFamily: "Kanit",
-                            fontSize: 21,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: onPressed,
+                        icon: Icon(
+                          Icons.check,
+                          size: 40.sp,
+                          color: AppColors.backgroundColor,
+                        )),
                   ],
                 ),
               ),
@@ -162,107 +163,6 @@ class _AddTodoPopupCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AddTodoPopupCard extends ConsumerWidget {
-  /// {@macro add_todo_popup_card}
-  AddTodoPopupCard({super.key, required this.collectionId});
-
-  final TextEditingController quoteController = TextEditingController();
-  final TextEditingController authorController = TextEditingController();
-  final String collectionId;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Hero(
-          tag: "add-pop-up-tag",
-          createRectTween: (begin, end) {
-            return CustomRectTween(begin: begin, end: end);
-          },
-          child: Material(
-            color: AppColors.secondaryColor,
-            elevation: 2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      controller: quoteController,
-                      decoration: const InputDecoration(
-                        hintText: 'Write a quote',
-                        hintStyle: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
-                        border: InputBorder.none,
-                      ),
-                      cursorColor: Colors.black,
-                      style: const TextStyle(color: Colors.black, fontSize: 21),
-                      maxLines: 6,
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      thickness: 0.6,
-                    ),
-                    TextField(
-                      controller: authorController,
-                      decoration: const InputDecoration(
-                        hintText: 'Author',
-                        hintStyle: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
-                        border: InputBorder.none,
-                      ),
-                      cursorColor: Colors.black,
-                      maxLines: 2,
-                      style: const TextStyle(color: Colors.black, fontSize: 21),
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      thickness: 0.6,
-                    ),
-                    TextButton(
-                      onPressed: () => addQuote(ref, context),
-                      child: const Text(
-                        'ADD',
-                        style: TextStyle(
-                            color: AppColors.textBlackColor,
-                            fontFamily: "Kanit",
-                            fontSize: 21,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void addQuote(WidgetRef ref, BuildContext context) {
-    final String userId = ref.read(currentUserProvider)?.uid.toString() ?? "";
-    // final String collectionId =  ref
-
-    final Quote quote = Quote(
-        id: generateId(),
-        quotes: quoteController.text.trim().toString(),
-        author: authorController.text.trim().toString(),
-        userId: userId,
-        collectionIds: [collectionId]);
-
-    ref.read(quoteNotifier.notifier).addQuote(quote, context);
   }
 }
 

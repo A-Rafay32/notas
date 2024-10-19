@@ -12,9 +12,11 @@ import 'package:notas/core/utils/loader.dart';
 import 'package:notas/core/utils/types.dart';
 import 'package:notas/features/auth/providers/auth_providers.dart';
 import 'package:notas/features/collections/providers/collection_providers.dart';
+import 'package:notas/features/collections/screens/collection_detail_screen.dart';
 import 'package:notas/features/collections/screens/collection_screen.dart';
 import 'package:notas/features/home/providers/home_state_provider.dart';
 import 'package:notas/features/home/screens/widgets/log_out_bottom_sheet.dart';
+import 'package:notas/features/quotes/screens/quote_screen.dart';
 
 class CustomDrawer extends ConsumerStatefulWidget {
   const CustomDrawer({
@@ -80,17 +82,28 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                             color: AppColors.textWhiteColor,
                           ),
                           itemCount: data.length,
-                          itemBuilder: (context, index) => Container(
-                            margin: EdgeInsets.symmetric(vertical: 10.h),
-                            child: Row(children: [
-                              Icon(Icons.arrow_forward_ios_sharp, size: 15.h),
-                              AppSizes.tinyX,
-                              Text(
-                                data[index].name,
-                                style: context.textTheme.labelMedium
-                                    ?.copyWith(color: AppColors.textWhiteColor),
-                              ),
-                            ]),
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              context.pop();
+                              // ref
+                              //     .read(userNotifier.notifier)
+                              //     .updateUser(updatedFields: {});
+                              context.push(CollectionDetailScreen(
+                                  collection: data[index]));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 10.h),
+                              child: Row(children: [
+                                Icon(Icons.arrow_forward_ios_sharp, size: 15.h),
+                                AppSizes.tinyX,
+                                Text(
+                                  data[index].name,
+                                  style: context.textTheme.labelMedium
+                                      ?.copyWith(
+                                          color: AppColors.textWhiteColor),
+                                ),
+                              ]),
+                            ),
                           ),
                         ),
                       )),
