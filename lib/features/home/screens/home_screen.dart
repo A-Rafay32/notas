@@ -40,7 +40,6 @@ class HomeScreen extends ConsumerWidget {
         title: Text("Notas", style: context.textTheme.headlineLarge),
       ),
       drawer: const CustomDrawer(),
-      // body: screens[currentScreen],
       body: collectionValue.when(
         data: (data) => QuoteScreen(collection: data),
         error: (error, stackTrace) => Column(
@@ -64,11 +63,11 @@ class HomeScreen extends ConsumerWidget {
         ),
         loading: () => const Loader(),
       ),
-      // bottomNavigationBar: CustomNavigationBar(w: context.w),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.secondaryColor,
-        onPressed: () {},
+        onPressed: () {
+          context.push(AddTodoPopupCard(collectionId: ""));
+        },
         child: SvgPicture.asset(
           "assets/svgs/ai.svg",
           height: 30,

@@ -21,64 +21,46 @@ class QuoteScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final streamValue = ref.watch(getQuotesByCollection(collection.id));
 
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(64),
-          child: CustomAppBar(
-              onPressed: () => context.pop(), text: collection.name)),
-      body: Container(
-        padding: AppPaddings.normal,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("${collection.name}/", style: context.textTheme.headlineMedium),
-          AppSizes.normalY,
-          streamValue.when(
-            data: (data) => SizedBox(
-              height: context.h * 0.6,
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) => Container(
-                  margin: AppPaddings.tiny,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${index + 1}. ${data[index].quotes} ~ ${data[index].author}",
-                        style: context.textTheme.labelMedium
-                            ?.copyWith(color: AppColors.textWhiteColor),
-                      ),
-                    ],
-                  ),
+    return Container(
+      padding: AppPaddings.normal,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text("${collection.name}/", style: context.textTheme.headlineMedium),
+        AppSizes.normalY,
+        streamValue.when(
+          data: (data) => SizedBox(
+            height: context.h * 0.6,
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) => Container(
+                margin: AppPaddings.tiny,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${index + 1}. ${data[index].quotes} ~ ${data[index].author}",
+                      style: context.textTheme.labelMedium
+                          ?.copyWith(color: AppColors.textWhiteColor),
+                    ),
+                  ],
                 ),
               ),
             ),
-            error: (error, stackTrace) => Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "No Quotes Exist",
-                  style: context.textTheme.labelMedium?.copyWith(
-                      color: AppColors.textWhiteColor.withOpacity(0.6)),
-                ),
-                AppSizes.normalY,
-                const Icon(Icons.error_outline_rounded, size: 60)
-              ],
-            ),
-            loading: () => const Loader(),
-          )
-        ]),
-      ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.secondaryColor,
-          onPressed: () {
-            context.push(AddTodoPopupCard(collectionId: collection.id));
-          },
-          child: SvgPicture.asset(
-            "assets/svgs/ai.svg",
-            height: 30,
-            width: 30,
-            colorFilter: const ColorFilter.mode(
-                AppColors.textBlackColor, BlendMode.srcIn),
-          )),
+          ),
+          error: (error, stackTrace) => Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "No Quotes Exist",
+                style: context.textTheme.labelMedium?.copyWith(
+                    color: AppColors.textWhiteColor.withOpacity(0.6)),
+              ),
+              AppSizes.normalY,
+              const Icon(Icons.error_outline_rounded, size: 60)
+            ],
+          ),
+          loading: () => const Loader(),
+        )
+      ]),
     );
   }
 }
