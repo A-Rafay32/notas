@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:notas/app/themes/app_colors.dart';
 import 'package:notas/app/themes/app_paddings.dart';
+import 'package:notas/app/themes/app_text_field_themes.dart';
 import 'package:notas/core/extensions/routes_extenstion.dart';
 import 'package:notas/core/extensions/sizes_extensions.dart';
 import 'package:notas/core/extensions/text_theme_ext.dart';
@@ -26,42 +27,48 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final collectionValue = ref.watch(getDefaultCollection);
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-    return Scaffold(
-        extendBody: true,
-        backgroundColor: AppColors.primaryColor,
-        appBar: AppBar(
-          title: Text("Notas",
-              style: context.textTheme.headlineLarge
-                  ?.copyWith(color: AppColors.secondaryColor)),
-        ),
-        drawer: const CustomDrawer(),
-        body: collectionValue.when(
-          data: (data) {
-            collectionId = data.id;
-            return QuoteScreen(collection: data);
-          },
-          error: (error, stackTrace) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                  child: Icon(
-                Icons.error_outline_sharp,
-                size: 150,
-                color: AppColors.textWhiteColor.withOpacity(0.6),
-              )),
-              AppSizes.normalY,
-              Center(
-                child: Text(
-                  "No Quotes Exist",
-                  style: context.textTheme.headlineSmall?.copyWith(
-                      color: AppColors.textWhiteColor.withOpacity(0.6)),
+    return SafeArea(
+      child: Scaffold(
+          key: scaffoldKey,
+          extendBody: true,
+          backgroundColor: AppColors.primaryColor,
+          // appBar: AppBar(
+
+          //   title: Text("Notas",
+          //       style: context.textTheme.headlineLarge
+          //           ?.copyWith(color: AppColors.secondaryColor)),
+          // ),
+          drawer: const CustomDrawer(),
+          body: collectionValue.when(
+            data: (data) {
+              collectionId = data.id;
+              return QuoteScreen(collection: data);
+            },
+            error: (error, stackTrace) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                    child: Icon(
+                  Icons.error_outline_sharp,
+                  size: 150,
+                  color: AppColors.textWhiteColor.withOpacity(0.6),
+                )),
+                AppSizes.normalY,
+                Center(
+                  child: Text(
+                    "No Quotes Exist",
+                    style: context.textTheme.headlineSmall?.copyWith(
+                        color: AppColors.textWhiteColor.withOpacity(0.6)),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            loading: () => const Loader(),
           ),
-          loading: () => const Loader(),
-        ),
-        floatingActionButton: AddButton(collectionId: collectionId.toString()));
+          floatingActionButton:
+              AddButton(collectionId: collectionId.toString())),
+    );
   }
 }

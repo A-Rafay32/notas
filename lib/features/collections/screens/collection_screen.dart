@@ -146,7 +146,7 @@ class CreateCollectionWidget extends ConsumerWidget {
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                          borderSide:
+                            borderSide:
                                 const BorderSide(color: Colors.white60)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -159,16 +159,19 @@ class CreateCollectionWidget extends ConsumerWidget {
             ),
           );
         },
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          const Icon(
-            Icons.add,
-            color: Colors.white70,
-          ),
-          AppSizes.tinyX,
-          Text("Create new collection",
-              style: context.textTheme.labelMedium
-                  ?.copyWith(color: AppColors.textWhiteColor))
-        ]),
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 8.h),
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            const Icon(
+              Icons.add,
+              color: Colors.white70,
+            ),
+            AppSizes.tinyX,
+            Text("Create new collection",
+                style: context.textTheme.labelMedium
+                    ?.copyWith(color: AppColors.textWhiteColor))
+          ]),
+        ),
       ),
     );
   }

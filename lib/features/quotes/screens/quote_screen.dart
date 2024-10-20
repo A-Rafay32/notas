@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:notas/app/themes/app_colors.dart';
 import 'package:notas/app/themes/app_paddings.dart';
@@ -25,8 +26,11 @@ class QuoteScreen extends ConsumerWidget {
     return Container(
       padding: AppPaddings.normal,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TextField(
-          decoration: AppTextFieldDecorations.searchFieldDecoration,
+        SizedBox(
+          height: 70.h,
+          child: TextField(
+            decoration: AppTextFieldDecorations.searchFieldDecoration,
+          ),
         ),
         AppSizes.largeY,
         Text("${collection.name}/",

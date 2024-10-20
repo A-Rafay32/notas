@@ -61,7 +61,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                                 AppColors.secondaryColor, BlendMode.srcIn)),
                         AppSizes.tinyX,
                         const Text(
-                          "Collections",
+                          "Notas",
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: "Kanit",
@@ -71,18 +71,16 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                       ],
                     ),
                   )),
+              AppSizes.normalY,
+              const Divider(
+                thickness: 0.5,
+                color: AppColors.textWhiteColor,
+              ),
               streamValue.when(
-                  data: (data) => Expanded(
-                          // height: context.h * 0.2,
-                          child: SizedBox(
-                        width: context.w * 0.7,
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) => const Divider(
-                            thickness: 0.5,
-                            color: AppColors.textWhiteColor,
-                          ),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) => GestureDetector(
+                  data: (data) => Column(children: [
+                        ...List.generate(
+                          data.length,
+                          (index) => GestureDetector(
                             onTap: () {
                               context.pop();
                               // ref
@@ -91,83 +89,98 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                               context.push(CollectionDetailScreen(
                                   collection: data[index]));
                             },
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.h),
-                              child: Row(children: [
-                                Icon(Icons.arrow_forward_ios_sharp, size: 15.h),
-                                AppSizes.tinyX,
-                                Text(
-                                  data[index].name,
-                                  style: context.textTheme.labelMedium
-                                      ?.copyWith(
-                                          color: AppColors.textWhiteColor),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 8.h),
+                                  child: Row(children: [
+                                    Icon(Icons.arrow_forward_ios_sharp,
+                                        size: 15.h),
+                                    AppSizes.tinyX,
+                                    Text(
+                                      data[index].name,
+                                      style: context.textTheme.labelMedium
+                                          ?.copyWith(
+                                              color: AppColors.textWhiteColor),
+                                    ),
+                                  ]),
                                 ),
-                              ]),
+                                const Divider(
+                                  thickness: 0.5,
+                                  color: AppColors.textWhiteColor,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      )),
+                      ]),
                   error: (error, stackTrace) => Text(
                         "No Collections Exist",
                         style: context.textTheme.labelMedium?.copyWith(
                             color: AppColors.textWhiteColor.withOpacity(0.6)),
                       ),
                   loading: () => const Loader()),
-              const Divider(
-                thickness: 0.5,
-                color: AppColors.textWhiteColor,
-              ),
               CreateCollectionWidget(),
               const Divider(
                 thickness: 0.5,
                 color: AppColors.textWhiteColor,
               ),
               AppSizes.smallY,
-              GestureDetector(
-                onTap: () => {
-                  showModalBottomSheet(
-                    constraints: BoxConstraints(maxHeight: 300.h),
-                    context: context,
-                    builder: (context) {
-                      return LogOutBottomSheet(
-                          message: "",
-                          abortButtonText: "Cancel",
-                          continueButton: () => _signOut(ref, context),
-                          continueButtonText: "Yes, Logout",
-                          subtitle: "Are you sure you want to log out?",
-                          title: "Logout",
-                          abortButton: () {
-                            context.pop();
-                          },
-                          context: context,
-                          w: context.w);
-                    },
-                  )
-                },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/svgs/profile/logout.svg",
-                      width: 20.w,
-                      height: 20.h,
-                      colorFilter:
-                          const ColorFilter.mode(Colors.red, BlendMode.srcIn),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      "Logout",
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: Colors.red,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  ],
-                ),
-              )
+              const LogOutButton()
             ],
           ),
         ));
+  }
+}
+
+class LogOutButton extends ConsumerWidget {
+  const LogOutButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return GestureDetector(
+      onTap: () => {
+        showModalBottomSheet(
+          constraints: BoxConstraints(maxHeight: 300.h),
+          context: context,
+          builder: (context) {
+            return LogOutBottomSheet(
+                message: "",
+                abortButtonText: "Cancel",
+                continueButton: () => _signOut(ref, context),
+                continueButtonText: "Yes, Logout",
+                subtitle: "Are you sure you want to log out?",
+                title: "Logout",
+                abortButton: () {
+                  context.pop();
+                },
+                context: context,
+                w: context.w);
+          },
+        )
+      },
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            "assets/svgs/profile/logout.svg",
+            width: 20.w,
+            height: 20.h,
+            colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            "Logout",
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.red,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _signOut(WidgetRef ref, BuildContext context) async {

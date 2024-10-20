@@ -46,11 +46,11 @@ class HomeScreenAppBar extends ConsumerWidget {
             context.push(const NotificationScreen());
           },
           style: const ButtonStyle(
-              padding: MaterialStatePropertyAll(EdgeInsets.all(5)),
+              padding: WidgetStatePropertyAll(EdgeInsets.all(5)),
               backgroundColor:
-                  MaterialStatePropertyAll(AppColors.blackshadowColor),
-              elevation: MaterialStatePropertyAll(10.0),
-              shape: MaterialStatePropertyAll(CircleBorder())),
+                  WidgetStatePropertyAll(AppColors.blackshadowColor),
+              elevation: WidgetStatePropertyAll(10.0),
+              shape: WidgetStatePropertyAll(CircleBorder())),
           child: const Icon(
             Icons.notifications_none_outlined,
             size: 25,

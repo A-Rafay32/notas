@@ -13,14 +13,27 @@ class AppTextFieldDecorations {
           borderSide: const BorderSide(color: AppColors.blackshadowColor),
           borderRadius: BorderRadius.circular(15),
           gapPadding: 10),
-      suffixIcon: Icon(
-        Icons.search_sharp,
-        size: 30.sp,
-        color: AppColors.textWhiteColor,
+      suffixIcon: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+        child: const CircleAvatar(
+          backgroundColor: Colors.green,
+          backgroundImage: AssetImage("assets/svgs/profile/user_avatar.png"),
+          radius: 3,
+        ),
+      ),
+      prefixIcon: IconButton(
+        onPressed: () {
+          // _scaffoldKey.currentState!.openDrawer();
+        },
+        icon: Icon(
+          Icons.menu,
+          size: 25.sp,
+          color: AppColors.textWhiteColor,
+        ),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 19.h),
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      hintText: "Search",
+      hintText: "Search your notes",
       hintStyle:
           AppTextTheme.textTheme.bodyLarge?.copyWith(color: Colors.white),
       focusedErrorBorder: OutlineInputBorder(
