@@ -29,7 +29,7 @@ class QuoteScreen extends ConsumerWidget {
         SizedBox(
           height: 70.h,
           child: TextField(
-            decoration: AppTextFieldDecorations.searchFieldDecoration,
+            decoration: AppTextFieldDecorations.searchFieldDecoration(context),
           ),
         ),
         AppSizes.largeY,
