@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
 import 'package:notas/app/constants/firebase_constants.dart';
 import 'package:notas/core/exceptions/exceptions.dart';
-import 'package:notas/core/services/image_picker_service.dart';
 import 'package:notas/core/utils/types.dart';
 import 'package:notas/features/auth/model/user.dart';
 // import 'package:notas/features/home/models/rental_house.dart';
@@ -155,16 +154,16 @@ class UserRepository {
   //   }
   // }
 
-  FutureEither0 setUserProfileImage() async {
-    try {
-      final url = await ImageService()
-          .uploadImage(userStorageRef, currentUser?.displayName ?? "");
-      await currentUser
-          ?.updatePhotoURL(url.right)
-          .catchError((error) => throw error);
-      return Right(Success(message: "Profile Image updated successfully"));
-    } catch (e) {
-      return failure("Failed to update the profile image ");
-    }
-  }
+  // FutureEither0 setUserProfileImage() async {
+  //   try {
+  //     final url = await ImageService()
+  //         .uploadImage(userStorageRef, currentUser?.displayName ?? "");
+  //     await currentUser
+  //         ?.updatePhotoURL(url.right)
+  //         .catchError((error) => throw error);
+  //     return Right(Success(message: "Profile Image updated successfully"));
+  //   } catch (e) {
+  //     return failure("Failed to update the profile image ");
+  //   }
+  // }
 }

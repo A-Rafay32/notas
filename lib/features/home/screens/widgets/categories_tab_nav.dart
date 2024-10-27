@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notas/app/constants/app_images.dart';
 import 'package:notas/app/themes/app_colors.dart';
 import 'package:notas/app/themes/app_paddings.dart';
-import 'package:notas/features/home/providers/home_providers.dart';
 
 class CatogoriesTabNav extends ConsumerStatefulWidget {
   const CatogoriesTabNav({super.key, required this.w});

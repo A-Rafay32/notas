@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notas/core/exceptions/exceptions.dart';
 import 'package:notas/core/utils/gen_random_ids.dart';
-import 'package:notas/features/auth/model/user_details.dart';
 import 'package:notas/features/auth/repositories/auth_repository.dart';
 import 'package:notas/features/auth/model/user.dart';
 import 'package:notas/features/auth/repositories/user_repository.dart';

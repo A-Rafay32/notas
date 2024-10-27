@@ -13,7 +13,6 @@ import 'package:notas/features/auth/providers/auth_providers.dart';
 import 'package:notas/features/collections/providers/collection_providers.dart';
 import 'package:notas/features/collections/screens/collection_screen.dart';
 import 'package:notas/features/home/providers/home_state_provider.dart';
-import 'package:notas/features/home/screens/buyer_profile_screen.dart';
 import 'package:notas/features/home/screens/custom_drawer.dart';
 import 'package:notas/features/home/screens/widgets/add_quote_dialog.dart';
 import 'package:notas/features/home/screens/widgets/app_bars.dart';

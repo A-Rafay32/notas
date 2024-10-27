@@ -5,7 +5,6 @@ import 'package:notas/app/constants/firebase_constants.dart';
 import 'package:notas/app/themes/app_colors.dart';
 import 'package:notas/core/extensions/routes_extenstion.dart';
 import 'package:notas/features/auth/providers/auth_providers.dart';
-import 'package:notas/features/home/screens/notification_screen.dart';
 
 class HomeScreenAppBar extends ConsumerWidget {
   const HomeScreenAppBar({
@@ -42,9 +41,7 @@ class HomeScreenAppBar extends ConsumerWidget {
       ),
       actions: [
         ElevatedButton(
-          onPressed: () {
-            context.push(const NotificationScreen());
-          },
+          onPressed: () {},
           style: const ButtonStyle(
               padding: WidgetStatePropertyAll(EdgeInsets.all(5)),
               backgroundColor:
