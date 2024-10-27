@@ -105,10 +105,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                                     ),
                                   ]),
                                 ),
-                                const Divider(
-                                  thickness: 0.5,
-                                  color: AppColors.textWhiteColor,
-                                ),
+                                Divider(
+                                    thickness: 0.5,
+                                    color: AppColors.textWhiteColor
+                                        .withOpacity(0.5)),
                               ],
                             ),
                           ),
@@ -121,9 +121,9 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                       ),
                   loading: () => const Loader()),
               CreateCollectionWidget(),
-              const Divider(
+              Divider(
                 thickness: 0.5,
-                color: AppColors.textWhiteColor,
+                color: AppColors.textWhiteColor.withOpacity(0.5),
               ),
               AppSizes.smallY,
               const LogOutButton()

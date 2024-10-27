@@ -13,15 +13,25 @@ import 'package:notas/features/auth/screens/widgets/app_bar_white.dart';
 import 'package:notas/features/collections/models/collections.dart';
 import 'package:notas/features/home/screens/widgets/add_quote_dialog.dart';
 import 'package:notas/features/quotes/providers/quotes_providers.dart';
+import 'package:notas/features/quotes/screens/search_screen.dart';
 
-class QuoteScreen extends ConsumerWidget {
+class QuoteScreen extends ConsumerStatefulWidget {
   const QuoteScreen({super.key, required this.collection});
 
   final Collection collection;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final streamValue = ref.watch(getQuotesByCollection(collection.id));
+  ConsumerState<QuoteScreen> createState() => _QuoteScreenState();
+}
+
+class _QuoteScreenState extends ConsumerState<QuoteScreen> {
+  // final searchValue = "";
+
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final streamValue = ref.watch(getQuotesByCollection(widget.collection.id));
 
     return Container(
       padding: AppPaddings.normal,
@@ -29,11 +39,17 @@ class QuoteScreen extends ConsumerWidget {
         SizedBox(
           height: 70.h,
           child: TextField(
+            controller: searchController,
+            onChanged: (value) {
+              searchController.text = value;
+              setState(() {});
+            },
+            onTap: () => context.push(SearchScreen()),
             decoration: AppTextFieldDecorations.searchFieldDecoration(context),
           ),
         ),
         AppSizes.largeY,
-        Text("${collection.name}/",
+        Text("${widget.collection.name}/",
             style: context.textTheme.headlineMedium?.copyWith()),
         AppSizes.normalY,
         streamValue.when(

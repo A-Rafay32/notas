@@ -89,6 +89,24 @@ class QuotesRepository {
     );
   }
 
+  Stream<List<Quote>> getQuotesBySearch(String searchText) {
+    return quotesCollection
+        // .where("collectionIds", arrayContains: collectionId)
+        .where("userId", isEqualTo: currentUser?.uid)
+        .where("quotes", isGreaterThanOrEqualTo: searchText)
+        .where("quotes", isLessThanOrEqualTo: '$searchText\uf8ff')
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.map((doc) {
+          return Quote.fromMap(doc.data() as Map<String, dynamic>);
+        }).toList();
+      } else {
+        return [];
+      }
+    });
+  }
+
   // Delete a specific Quote
   FutureEither0 deleteQuote(String documentId) async {
     try {

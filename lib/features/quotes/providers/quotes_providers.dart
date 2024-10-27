@@ -12,3 +12,8 @@ final getQuotesByCollection =
       .watch(quotesRepositoryProvider)
       .getQuotesByCollection(collectionId);
 });
+
+final getQuotesBySearch =
+    StreamProvider.family<List<Quote>, String>((ref, searchQuery) {
+  return ref.watch(quotesRepositoryProvider).getQuotesBySearch(searchQuery);
+});
