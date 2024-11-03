@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notas/app/themes/app_colors.dart';
+import 'package:notas/app/themes/app_paddings.dart';
 import 'package:notas/features/auth/screens/widgets/button.dart';
 
 class LogOutBottomSheet extends StatelessWidget {
@@ -28,22 +29,21 @@ class LogOutBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50), color: Colors.white),
+      decoration: const BoxDecoration(
+          color: AppColors.blackshadowColor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50), topRight: Radius.circular(50))),
       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: 10.h,
-          ),
+          SizedBox(height: 10.h),
           Container(
             height: 2,
             width: 40,
-            color: Colors.grey.shade200,
+            color: AppColors.tertiaryColor,
           ),
-          SizedBox(
-            height: 30.h,
-          ),
+          SizedBox(height: 30.h),
           Text(
             title,
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
@@ -51,20 +51,16 @@ class LogOutBottomSheet extends StatelessWidget {
                 color: Colors.red,
                 fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20.h),
-          Divider(
-            color: Colors.grey.shade100,
-          ),
-          SizedBox(height: 30.h),
+          AppSizes.smallY,
+          const Divider(color: AppColors.tertiaryColor),
+          AppSizes.normalY,
           Text(
             subtitle,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.textBlackColor,
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          SizedBox(height: 12.h),
           Expanded(child: Container()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,8 +1,8 @@
 // Quotes Model
 class Quote {
   final String id;
-  final String quotes;
-  final String author;
+  String quotes;
+  String author;
   final String userId;
   final List<String> collectionIds;
   final String? userFavouriteId; // Nullable

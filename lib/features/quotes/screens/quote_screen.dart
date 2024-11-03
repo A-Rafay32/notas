@@ -28,6 +28,9 @@ class _QuoteScreenState extends ConsumerState<QuoteScreen> {
   // final searchValue = "";
 
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController editingController = TextEditingController();
+
+  int? editingIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +60,49 @@ class _QuoteScreenState extends ConsumerState<QuoteScreen> {
             height: context.h * 0.6,
             child: ListView.builder(
               itemCount: data.length,
-              itemBuilder: (context, index) => Container(
-                margin: AppPaddings.tiny,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${index + 1}. ${data[index].quotes} ~ ${data[index].author}",
-                      style: context.textTheme.labelMedium
-                          ?.copyWith(color: AppColors.textWhiteColor),
-                    ),
-                  ],
+              itemBuilder: (context, index) => GestureDetector(
+                onDoubleTap: () {
+                  setState(() {
+                    // editingIndex = editingIndex != null ? null : index;
+                    editingIndex = index;
+                    editingController.text = data[index].quotes;
+                  });
+                },
+                child: Container(
+                  margin: AppPaddings.tiny,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (editingIndex == index)
+                        TextField(
+                          controller: editingController,
+                          maxLines: 3,
+                          onChanged: (newValue) {
+                            setState(() {
+                              data[index].quotes = newValue.toString();
+
+                              editingController.clear();
+                            });
+                          },
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
+                        )
+                      else
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: "${index + 1}. ${data[index].quotes} ~ ",
+                            style: context.textTheme.labelMedium
+                                ?.copyWith(color: AppColors.textWhiteColor),
+                          ),
+                          TextSpan(
+                            text: data[index].author,
+                            style: context.textTheme.labelMedium
+                                ?.copyWith(color: AppColors.secondaryColor),
+                          )
+                        ])),
+                    ],
+                  ),
                 ),
               ),
             ),

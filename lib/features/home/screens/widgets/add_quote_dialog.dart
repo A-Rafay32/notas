@@ -116,15 +116,13 @@ class _AddTodoPopupCard extends StatelessWidget {
                       controller: quoteController,
                       decoration: const InputDecoration(
                         hintText: 'Write a quote',
-                        hintStyle: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
+                        hintStyle:
+                            TextStyle(fontSize: 19, color: Colors.black87),
                         border: InputBorder.none,
                       ),
                       cursorColor: Colors.black,
                       style: const TextStyle(color: Colors.black, fontSize: 21),
-                      maxLines: 6,
+                      maxLines: 4,
                     ),
                     const Divider(
                       color: Colors.black,
@@ -134,14 +132,12 @@ class _AddTodoPopupCard extends StatelessWidget {
                       controller: authorController,
                       decoration: const InputDecoration(
                         hintText: 'Author',
-                        hintStyle: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87),
+                        hintStyle:
+                            TextStyle(fontSize: 19, color: Colors.black87),
                         border: InputBorder.none,
                       ),
                       cursorColor: Colors.black,
-                      maxLines: 2,
+                      maxLines: 1,
                       style: const TextStyle(color: Colors.black, fontSize: 21),
                     ),
                     const Divider(

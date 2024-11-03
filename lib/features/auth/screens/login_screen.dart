@@ -49,14 +49,7 @@ class LoginScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              AppSizes.largeY,
-              LoginHeader(
-                w: context.w,
-                text1: "Welcome Back",
-                text2: "Sign in with your email and password ",
-                text3: "or continue with social media",
-              ),
-              AppSizes.largeY,
+              SizedBox(height: context.h * 0.2),
               AuthFormField(
                 emailController: emailController,
                 passwordController: passwordController,
@@ -72,8 +65,7 @@ class LoginScreen extends ConsumerWidget {
                     context: context),
                 text: "Login",
               ),
-              AppSizes.largeY,
-              AppSizes.largeY,
+              const Spacer(),
               GestureDetector(
                 onTap: () => ref.read(socialAuthNotifier.notifier).googleSignIn(
                     email: emailController.text.trim(),
@@ -98,6 +90,8 @@ class LoginScreen extends ConsumerWidget {
                 ),
               ),
               // const SocialCard(),
+              AppSizes.largeY,
+              AppSizes.largeY,
               const Spacer(),
               SignUpBar(
                 onTap: () => context.push(RegisterScreen()),

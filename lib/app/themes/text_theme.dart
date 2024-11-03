@@ -5,62 +5,62 @@
   import 'package:notas/app/themes/app_colors.dart';
 
   class AppTextTheme {
-    static final bodyMedium = GoogleFonts.urbanist(
+    static final bodyMedium = GoogleFonts.ubuntuMono(
         fontSize: 14,
         color: AppColors.textWhiteColor,
         fontWeight: FontWeight.w400);
 
-    static final titleMedium = GoogleFonts.urbanist(
+    static final titleMedium = GoogleFonts.ubuntuMono(
         fontSize: 20,
         color: AppColors.textWhiteColor,
         fontWeight: FontWeight.w700);
 
     static final textTheme = TextTheme(
-      titleLarge: GoogleFonts.urbanist(
+      titleLarge: GoogleFonts.ubuntuMono(
           fontSize: 16,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w700),
-      titleMedium: GoogleFonts.urbanist(
+      titleMedium: GoogleFonts.ubuntuMono(
           fontSize: 14,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w700),
-      titleSmall: GoogleFonts.urbanist(
+      titleSmall: GoogleFonts.ubuntuMono(
           fontSize: 12,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w700),
-      headlineLarge: GoogleFonts.urbanist(
+      headlineLarge: GoogleFonts.ubuntuMono(
           fontSize: 26,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.bold),
-      headlineMedium: GoogleFonts.urbanist(
+      headlineMedium: GoogleFonts.ubuntuMono(
           fontSize: 20,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.bold),
-      headlineSmall: GoogleFonts.urbanist(
+      headlineSmall: GoogleFonts.ubuntuMono(
           fontSize: 18,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.bold),
-      bodyLarge: GoogleFonts.urbanist(
+      bodyLarge: GoogleFonts.ubuntuMono(
           fontSize: 16,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w400),
-      bodyMedium: GoogleFonts.urbanist(
+      bodyMedium: GoogleFonts.ubuntuMono(
           fontSize: 14,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w400),
-      bodySmall: GoogleFonts.urbanist(
+      bodySmall: GoogleFonts.ubuntuMono(
           fontSize: 12,
           color: AppColors.textWhiteColor,
           fontWeight: FontWeight.w400),
-      labelLarge: GoogleFonts.urbanist(
+      labelLarge: GoogleFonts.ubuntuMono(
           fontSize: 16,
           color: AppColors.textWhiteColor.withOpacity(0.8),
           fontWeight: FontWeight.w400),
-      labelMedium: GoogleFonts.urbanist(
+      labelMedium: GoogleFonts.ubuntuMono(
           fontSize: 14,
           color: AppColors.textWhiteColor.withOpacity(0.8),
           fontWeight: FontWeight.w400),
-      labelSmall: GoogleFonts.urbanist(
+      labelSmall: GoogleFonts.ubuntuMono(
           fontSize: 12,
           color: AppColors.textWhiteColor.withOpacity(0.8),
           fontWeight: FontWeight.w400),
