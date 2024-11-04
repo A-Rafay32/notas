@@ -34,12 +34,12 @@ class ForgotScreen extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              LoginHeader(
-                w: context.w,
-                text1: "Recover Password",
-                text2: "Provide either your email or phone Number",
-                text3: "",
-              ),
+              // LoginHeader(
+              //   w: context.w,
+              //   text1: "Recover Password",
+              //   text2: "Provide either your email or phone Number",
+              //   text3: "",
+              // ),
               AppSizes.largeY,
               AppSizes.largeY,
               CustomTextField(

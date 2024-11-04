@@ -50,11 +50,11 @@ class RegisterScreen extends ConsumerWidget {
                 ],
               ),
               AppSizes.largeY,
-              LoginHeader(
-                  w: context.w,
-                  text1: "Create Your Account",
-                  text2: "Sign up with your email and password",
-                  text3: "or continue with social media"),
+              // LoginHeader(
+              //     w: context.w,
+              //     text1: "Create Your Account",
+              //     text2: "Sign up with your email and password",
+              //     text3: "or continue with social media"),
               AppSizes.largeY,
               CustomTextField(
                   validator: (value) {
