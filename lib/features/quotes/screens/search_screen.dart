@@ -9,14 +9,20 @@ import 'package:notas/core/extensions/text_theme_ext.dart';
 import 'package:notas/core/utils/loader.dart';
 import 'package:notas/features/quotes/providers/quotes_providers.dart';
 
-class SearchScreen extends ConsumerWidget {
-  SearchScreen({super.key});
-
-  TextEditingController controller = TextEditingController();
+class SearchScreen extends ConsumerStatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final streamValue = ref.watch(getQuotesBySearch(controller.text));
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends ConsumerState<SearchScreen> {
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    
+    final streamValue = ref.watch(getQuotesBySearch(searchController.text));
 
     return Scaffold(
       body: Container(
@@ -25,6 +31,11 @@ class SearchScreen extends ConsumerWidget {
           SizedBox(
             height: 70.h,
             child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                searchController.text = value;
+                setState(() {});
+              },
               decoration:
                   AppTextFieldDecorations.searchFieldDecorationForSearch(
                       context),
